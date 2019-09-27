@@ -2,6 +2,13 @@ const express = require('express')
 const dotenv = require('dotenv').config()
 const { TeamSpeak } = require('ts3-nodejs-library')
 
+const site = {
+    title: process.env.PAGE_TITLE,
+    link: process.env.PAGE_LINK,
+    link_text : process.env.PAGE_LINK_TEXT,
+    teamspeak_link: `ts3server://${process.env.TS_HOST}?port=${process.env.TS_SERVER_PORT}`
+}
+
 const data = {
     timestamp : -1,
     status : 'offline',
@@ -30,7 +37,7 @@ app.get('/', function (req, res) {
     if(data.timestamp < new Date().getTime() - 5000){
         getClients()
     }   
-    res.render('index', {data})
+    res.render('index', {data, site})
 })
 
 

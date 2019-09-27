@@ -4,14 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>potatoTV Teampseak Server</title>
+    <title><%= site.title %></title>
 
     <!-- CSS FILES -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css">
 
+    <!-- JS FILES -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit-icons.min.js"></script>
-
 
     <style>
         body {
@@ -34,12 +34,12 @@
         </nav>
     </div>
     <div class="uk-position-bottom-right uk-position-fixed uk-position-small uk-visible@m uk-position-z-index uk-light">
-        <a href="https://potatotv.net" class="uk-button uk-button-text">potatoTV.net</a>
+        <a href="<%= site.link %>" class="uk-button uk-button-text"><%= site.link_text %></a>
     </div>
     <div class="uk-width-medium uk-padding-small uk-position-z-index">
 
         <div class="uk-text-center uk-margin uk-light">
-            <span class="uk-text-lead">potatoTV Teamspeak</span>
+            <span class="uk-text-lead"><%= site.title %></span>
         </div>
         <div class="uk-text-center uk-margin">
             <% if(data.status === 'online') { %>
@@ -70,7 +70,7 @@
         </div>
         <div class="uk-text-center uk-margin">
             <a class="uk-button uk-button-secondary uk-border-pill uk-width-large"
-                href="ts3server://207.180.193.14?port=9987">conncet to server</a>
+                href="<%= site.teamspeak_link %>">conncet to server</a>
         </div>
         <% } else { %>
         <div class="uk-text-center uk-margin">
