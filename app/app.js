@@ -6,13 +6,14 @@ const site = {
     title: process.env.PAGE_TITLE,
     link: process.env.PAGE_LINK,
     link_text : process.env.PAGE_LINK_TEXT,
-    teamspeak_link: `ts3server://${process.env.TS_HOST}?port=${process.env.TS_SERVER_PORT}`
+    teamspeak_link: `ts3server://${process.env.TS_HOST}?port=${process.env.TS_SERVER_PORT}`,
 }
 
 const data = {
     timestamp : -1,
     status : 'offline',
-    users : []
+    users : [],
+    serverinfo: {}
 }
 
 const ts = new TeamSpeak({
@@ -32,10 +33,10 @@ app.set('view engine', 'ejs')
 app.use(express.static(__dirname + '/../public'))
 
 
-app.get('/', function (req, res) {
+app.get('/', async function (req, res) {
     //only refresh data every 5 seconds
     if(data.timestamp < new Date().getTime() - 5000){
-        getClients()
+        await getClients()
     }   
     res.render('index', {data, site})
 })
@@ -45,8 +46,14 @@ app.listen(3000, () => {
     console.log(`app started on http://localhost:${process.env.APP_PORT}`)
 })
 
-ts.on('ready', () => {
+ts.on('ready', async() => {
     console.log(`connected to TS3 Server ${process.env.TS_HOST} on query port ${process.env.TS_QUERY_PORT} as ${process.env.TS_USERNAME}` )
+    const serverinfo = await ts.serverInfo()
+    data.serverinfo = {
+        name : serverinfo.virtualserver_name,
+        maxclients : serverinfo.virtualserver_maxclients,
+        protected : serverinfo.virtualserver_flag_password == 1
+    }
     getClients()
 })
 
@@ -63,7 +70,7 @@ async function getClients(){
     clients.forEach(client => {
         array.push({
             name : client.nickname,
-            admin : client.servergroups[0] == 6
+            admin : client.servergroups[0] == process.env.TS_ADMINGROUP
         })
     })
     data.timestamp = new Date().getTime()

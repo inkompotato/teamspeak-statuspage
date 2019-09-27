@@ -39,7 +39,7 @@
     <div class="uk-width-medium uk-padding-small uk-position-z-index">
 
         <div class="uk-text-center uk-margin uk-light">
-            <span class="uk-text-lead"><%= site.title %></span>
+            <span class="uk-text-lead"><%= data.serverinfo.name %></span>
         </div>
         <div class="uk-text-center uk-margin">
             <% if(data.status === 'online') { %>
@@ -51,7 +51,7 @@
         </div>
         <% if (data.status === 'online') { %>
         <div class="uk-text-center uk-margin uk-light">
-            Users (<%= data.users.length %> / 32):
+            Users (<%= data.users.length %> / <%= data.serverinfo.maxclients %>):
         </div>
         <div class="uk-text-center uk-margin uk-light">
             <ul class="uk-list">
@@ -70,7 +70,10 @@
         </div>
         <div class="uk-text-center uk-margin">
             <a class="uk-button uk-button-secondary uk-border-pill uk-width-large"
-                href="<%= site.teamspeak_link %>">conncet to server</a>
+                href="<%= site.teamspeak_link %>"> <% if (data.serverinfo.protected) { %>
+                <span uk-icon="icon: lock"></span> <% } %>
+                conncet to server
+            </a>
         </div>
         <% } else { %>
         <div class="uk-text-center uk-margin">
