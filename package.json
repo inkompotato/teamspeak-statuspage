@@ -1,14 +1,18 @@
 {
   "name": "teamspeak-website",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A simple status page for any Teamspeak Server",
+  "main": "app/app.js",
   "scripts": {
-    "start": "nodemon app/app.js"
+    "start": "node app/app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/potatoTVnet/teamspeak-statuspage"
+  },
+  "keywords": ["teamspeak", "statuspage", "TS3"],
+  "author": "potatoTVnet",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^8.1.0",
     "ejs": "^2.7.1",
