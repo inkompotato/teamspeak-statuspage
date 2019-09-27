@@ -46,3 +46,8 @@ The website uses UIkit 3.2 and fetches the required files via the official CDN.
 * Express: https://www.npmjs.com/package/express
 * DotEnv: https://www.npmjs.com/package/dotenv
 * EJS: https://ejs.co
+
+## Licenses
+The code is licensed under the MIT license, see [here](LICENSE.md).
+
+Included images are licensed under CreativeCommons Attribution-NonCommercial 4.0 International (CC-BY-NC)
