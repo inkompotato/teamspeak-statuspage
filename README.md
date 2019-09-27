@@ -48,6 +48,6 @@ The website uses UIkit 3.2 and fetches the required files via the official CDN.
 * EJS: https://ejs.co
 
 ## Licenses
-The code is licensed under the MIT license, see [here](LICENSE.md).
+The code is licensed under the MIT license, see [here](LICENSE).
 
 Included images are licensed under CreativeCommons Attribution-NonCommercial 4.0 International (CC-BY-NC)
