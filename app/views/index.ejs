@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>potatoTV Teampseak Server</title>
+
+    <!-- CSS FILES -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/css/uikit.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.2.0/js/uikit-icons.min.js"></script>
+
+
+    <style>
+        body {
+            background-image: url('/resources/bg.jpg');
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body class="uk-background-dark uk-flex uk-flex-center uk-flex-middle" uk-height-viewport="expand: true">
+    <div class="uk-position-cover uk-overlay-primary uk-position-fixed">
+        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+            <div class="uk-navbar-right">
+                <ul class="uk-navbar-nav">
+                    <li><a href="" class="uk-icon-link" uk-icon="refresh"></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="uk-position-bottom-right uk-position-fixed uk-position-small uk-visible@m uk-position-z-index uk-light">
+        <a href="https://potatotv.net" class="uk-button uk-button-text">potatoTV.net</a>
+    </div>
+    <div class="uk-width-medium uk-padding-small uk-position-z-index">
+
+        <div class="uk-text-center uk-margin uk-light">
+            <span class="uk-text-lead">potatoTV Teamspeak</span>
+        </div>
+        <div class="uk-text-center uk-margin">
+            <% if(data.status === 'online') { %>
+            <span class="uk-label uk-label-success">online</span>
+            <% } else { %>
+            <span class="uk-label uk-label-danger">offline</span>
+            <% } %>
+
+        </div>
+        <% if (data.status === 'online') { %>
+        <div class="uk-text-center uk-margin uk-light">
+            Users (<%= data.users.length %> / 32):
+        </div>
+        <div class="uk-text-center uk-margin uk-light">
+            <ul class="uk-list">
+                <% data.users.forEach(user => { %>
+                <li>
+                    <div class="uk-inline">
+                        <span class="uk-form-icon" uk-icon="icon: user"></span>
+                        <input
+                            class="uk-input uk-form-width-large uk-border-pill uk-text-truncate <% if (user.admin) { %> uk-text-bold <% } %>"
+                            type="text" placeholder="disabled" value="<%= user.name %>" disabled
+                            uk-tooltip="title: <% if (user.admin) { %> ADMIN <% } %>; pos: right">
+                    </div>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+        <div class="uk-text-center uk-margin">
+            <a class="uk-button uk-button-secondary uk-border-pill uk-width-large"
+                href="ts3server://207.180.193.14?port=9987">conncet to server</a>
+        </div>
+        <% } else { %>
+        <div class="uk-text-center uk-margin">
+            The server will be back shortly...
+        </div>
+        <% } %>
+
+    </div>
+</body>
+
+</html>
