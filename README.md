@@ -4,6 +4,10 @@ This application will show a simple status page of any Teamspeak Server.
 * Webserver running node.js
 * Teamspeak 3 Server with Admin Access
 
+If you do not have a server query login yet, follow this guide:
+
+https://www.teamspeak3.com/support/teamspeak-3-add-server-query-user.php
+
 ## Setup
 1. run `npm i` to install required modules (express, dotenv, ejs, ts3-nodejs-library)
 2. configure environment variables
@@ -23,10 +27,12 @@ TS_PASSWORD=[SERVER QUERY PASSWORD]
 TS_NICKNAME=[SERVER QUERY NICKNAME]
 ````
 
-        
+
 3. start application with `npm start`
 
 ## About
+![](screenshot.png)
+
 The `app.js` connects to the TS3 Server on application start and refreshes the list of connected clients on each user request, but only if the requests are more than 5 seconds apart from each other. The page will display an offline badge when the server is not available. All private data is handled by environment variables, allowing for easy customization.
 
 The view `index.ejs` will be generated using ejs.
