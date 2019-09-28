@@ -62,7 +62,7 @@
                         <input
                             class="uk-input uk-form-width-large uk-border-pill uk-text-truncate <% if (user.admin) { %> uk-text-bold <% } %>"
                             type="text" placeholder="disabled" value="<%= user.name %>" disabled
-                            uk-tooltip="title: <% if (user.admin) { %> ADMIN <% } %>; pos: right">
+                            uk-tooltip="title: <%= user.channel %>; pos: right">
                     </div>
                 </li>
                 <% }) %>

@@ -9,6 +9,11 @@ const site = {
     teamspeak_link: `ts3server://${process.env.TS_HOST}?port=${process.env.TS_SERVER_PORT}`,
 }
 
+const internal = {
+    timestamp: 0,
+    channels : {}
+}
+
 const data = {
     timestamp : -1,
     status : 'offline',
@@ -34,10 +39,14 @@ app.use(express.static(__dirname + '/../public'))
 
 
 app.get('/', async function (req, res) {
-    //only refresh data every 5 seconds
-    if(data.timestamp < new Date().getTime() - 5000){
+    //only refresh channel data every 5 minutes
+    if(data.timestamp < new Date().getTime() - 300000){
+        await getChannels()
+    }
+    //only refresh client data every 5 seconds
+    if(internal.timestamp < new Date().getTime() - 5000){
         await getClients()
-    }   
+    }  
     res.render('index', {data, site})
 })
 
@@ -54,6 +63,7 @@ ts.on('ready', async() => {
         maxclients : serverinfo.virtualserver_maxclients,
         protected : serverinfo.virtualserver_flag_password == 1
     }
+    getChannels()
     getClients()
 })
 
@@ -70,13 +80,25 @@ async function getClients(){
     clients.forEach(client => {
         array.push({
             name : client.nickname,
-            admin : client.servergroups[0] == process.env.TS_ADMINGROUP
+            admin : client.servergroups[0] == process.env.TS_ADMINGROUP,
+            channel : internal.channels[client.cid] ? internal.channels[client.cid].name : 'could not get channel'
         })
     })
     data.timestamp = new Date().getTime()
     data.users = array
     data.status = 'online'
     console.log('client list refreshed')
+}
+
+async function getChannels(){
+    const channels = await ts.channelList()
+    channels.forEach(channel => {
+        internal.channels[channel.cid] = {
+            name : channel.name,
+            password: channel.flagPassword == 1
+        }
+    })
+    console.log('channel list refreshed')
 }
 
 
