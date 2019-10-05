@@ -15,7 +15,6 @@ const internal = {
 }
 
 const data = {
-    timestamp : -1,
     status : 'offline',
     users : [],
     serverinfo: {}
@@ -39,14 +38,18 @@ app.use(express.static(__dirname + '/../public'))
 
 
 app.get('/', async function (req, res) {
+    let currenttime = new Date().getTime()
     //only refresh channel data every 5 minutes
-    if(data.timestamp < new Date().getTime() - 300000){
+    if(internal.timestamp < currenttime - 300000){
         await getChannels()
     }
     //only refresh client data every 5 seconds
-    if(internal.timestamp < new Date().getTime() - 5000){
+    if(internal.timestamp < currenttime - 5000){
         await getClients()
     }  
+
+    internal.timestamp = currenttime
+    
     res.render('index', {data, site})
 })
 
