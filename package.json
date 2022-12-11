@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^8.1.0",
-    "ejs": "^2.7.1",
+    "ejs": "^3.1.7",
     "express": "^4.17.3",
     "ts3-nodejs-library": "^2.1.0"
   }
